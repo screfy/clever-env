@@ -1,4 +1,5 @@
 export * from './tsenv';
+export * from './errors';
 export * from './types';
 export * from './validators/str';
 export * from './validators/num';

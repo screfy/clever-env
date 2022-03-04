@@ -3,7 +3,9 @@
   "description": "Strongly typed environment variables with validation.",
   "license": "MIT",
   "version": "0.0.0",
+  "homepage": "https://github.com/screfy/ts-env#readme",
   "author": "screfy <me@screfy.com> (https://screfy.com)",
+  "repository": "github:screfy/ts-env",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -14,6 +16,21 @@
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit"
   },
+  "bugs": {
+    "url": "https://github.com/screfy/ts-env/issues"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "dotenv",
+    "environment",
+    "typescript",
+    "validation",
+    "environment-variables",
+    "typesafe",
+    "env"
+  ],
   "exports": {
     "import": "./dist/index.mjs",
     "require": "./dist/index.js"

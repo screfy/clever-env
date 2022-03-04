@@ -9,6 +9,7 @@ export * from './validators/email';
 export * from './validators/uuid';
 export * from './validators/url';
 export * from './validators/json';
+export * from './validators/literal';
 
 export { createValidator };
 export default parse;

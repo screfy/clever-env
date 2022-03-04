@@ -39,7 +39,7 @@ export function displayErrors(errors: ErrorList) {
     output.push(...invalid);
   }
 
-  console.log(`${output.join('\n')}\n`);
+  console.error(`${output.join('\n')}\n`);
 
   throw new Error(
     `Found ${errors.length} error${

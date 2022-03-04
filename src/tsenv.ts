@@ -1,11 +1,13 @@
-import { MissingVariableError } from './errors';
+import { InvalidVariableError, MissingVariableError } from './errors';
 import {
+  ErrorList,
   Schema,
   Options,
   VariableOptions,
   ValidatorFn,
   Validator
 } from './types';
+import { displayErrors } from './utils';
 
 function validateVariable<T>(
   name: string,
@@ -36,14 +38,30 @@ export function parse<Variables>(
   { env = process.env }: Options = {}
 ): Readonly<Variables> {
   const result = {} as Variables;
+  const errors: ErrorList = [];
 
   for (const name in schema) {
     const input = env[name];
     const validator = schema[name];
 
-    const value = validateVariable(name, input, validator);
+    try {
+      const value = validateVariable(name, input, validator);
 
-    result[name] = value;
+      result[name] = value;
+    } catch (e) {
+      if (
+        e instanceof MissingVariableError ||
+        e instanceof InvalidVariableError
+      ) {
+        errors.push(e);
+      } else {
+        throw e;
+      }
+    }
+  }
+
+  if (errors.length) {
+    displayErrors(errors);
   }
 
   return result;

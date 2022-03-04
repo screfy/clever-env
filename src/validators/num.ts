@@ -15,7 +15,10 @@ export const num = createValidator<number, NumberOptions>(
       const [min, max] = range;
 
       if (value < min || value > max) {
-        throw new InvalidVariableError(name, `out of range [${min}, ${max}]`);
+        throw new InvalidVariableError(
+          name,
+          `value '${input}' is out of range (${min}-${max})`
+        );
       }
     }
 

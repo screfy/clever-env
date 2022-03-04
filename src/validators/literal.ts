@@ -9,7 +9,10 @@ export interface LiteralOptions<T> extends VariableOptions<T> {
 export function literal<T extends string>(options: LiteralOptions<T> = {}) {
   return createValidator<T, LiteralOptions<T>>((name, input, { values }) => {
     if (values && !values.includes(input as T)) {
-      throw new InvalidVariableError(name, 'invalid value');
+      throw new InvalidVariableError(
+        name,
+        `value '${input}' is not valid literal (${values.join(', ')})`
+      );
     }
 
     return input as T;

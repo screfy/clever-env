@@ -11,7 +11,7 @@ export function json<T = { [key: string]: unknown }>(
 
       return value as T;
     } catch {
-      throw new InvalidVariableError(name, 'invalid json');
+      throw new InvalidVariableError(name, `value is not valid JSON`);
     }
   })(options);
 }

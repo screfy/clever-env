@@ -1,3 +1,5 @@
+import { InvalidVariableError, MissingVariableError } from './errors';
+
 export interface Options {
   env?: { [key: string]: string | undefined };
 }
@@ -20,3 +22,5 @@ export interface Validator<T, O = VariableOptions<T>> {
 export type Schema<Variables> = {
   [K in keyof Variables]: Validator<Variables[K]>;
 };
+
+export type ErrorList = (MissingVariableError | InvalidVariableError)[];

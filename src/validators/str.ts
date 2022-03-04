@@ -9,7 +9,10 @@ export interface StringOptions extends VariableOptions<string> {
 export const str = createValidator<string, StringOptions>(
   (name, input, { regex }) => {
     if (regex && !regex.test(input)) {
-      throw new InvalidVariableError(name, 'does not match regex');
+      throw new InvalidVariableError(
+        name,
+        `value '${input}' does not match regex`
+      );
     }
 
     return input;

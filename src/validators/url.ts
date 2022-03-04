@@ -7,6 +7,6 @@ export const url = createValidator<string>((name, input) => {
 
     return input;
   } catch {
-    throw new InvalidVariableError(name, 'invalid url');
+    throw new InvalidVariableError(name, `value '${input}' is not valid URL`);
   }
 });

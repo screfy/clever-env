@@ -1,6 +1,10 @@
 export class MissingVariableError extends Error {
+  public name: string;
+
   constructor(name: string) {
     super(`${name}: missing value`);
+
+    this.name = name;
   }
 }
 

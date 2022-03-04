@@ -10,6 +10,9 @@ export const bool = createValidator<boolean>((name, input) => {
     case '0':
       return false;
     default:
-      throw new InvalidVariableError(name, `invalid boolean value`);
+      throw new InvalidVariableError(
+        name,
+        `value '${input}' is not valid boolean`
+      );
   }
 });

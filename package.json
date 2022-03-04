@@ -2,11 +2,19 @@
   "name": "ts-env",
   "version": "0.0.0",
   "author": "screfy <me@screfy.com> (https://screfy.com)",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "rimraf dist && tsup src --format cjs,esm --dts --minify",
     "prepare": "husky install",
     "lint": "eslint .",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.js"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.1",
@@ -19,6 +27,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.4",
     "prettier": "^2.5.1",
+    "rimraf": "^3.0.2",
     "tsup": "^5.11.13",
     "typescript": "^4.5.5"
   }

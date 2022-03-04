@@ -6,6 +6,7 @@ export * from './validators/num';
 export * from './validators/bool';
 export * from './validators/port';
 export * from './validators/email';
+export * from './validators/uuid';
 
 export { createValidator };
 export default parse;

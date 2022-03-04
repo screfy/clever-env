@@ -1,5 +1,6 @@
 {
   "name": "ts-env",
+  "description": "Strongly typed environment variables with validation.",
   "version": "0.0.0",
   "author": "screfy <me@screfy.com> (https://screfy.com)",
   "main": "dist/index.js",

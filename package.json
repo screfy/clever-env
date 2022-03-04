@@ -31,6 +31,9 @@
     "typesafe",
     "env"
   ],
+  "engines": {
+    "node": ">=12"
+  },
   "exports": {
     "import": "./dist/index.mjs",
     "require": "./dist/index.js"

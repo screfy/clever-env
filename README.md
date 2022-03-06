@@ -1,6 +1,6 @@
-# Typesafe Environment (ts-env)
+# clever-env
 
-[`ts-env`][ts-env] validates environment variables and parses them to the right type.
+[`clever-env`][clever-env] validates, sanitizes environment variables and parses them to the right type.
 
 With this library, you can make sure you don't accidentally deploy your application with missing or invalid environment variables.
 
@@ -8,19 +8,19 @@ With this library, you can make sure you don't accidentally deploy your applicat
 
 ```bash
 # With NPM:
-npm install ts-env
+npm install clever-env
 
 # With Yarn:
-yarn add ts-env
+yarn add clever-env
 
 # With pnpm:
-pnpm add ts-env
+pnpm add clever-env
 ```
 
 ## Usage
 
 ```ts
-import { parse, literal, port, str, url } from 'ts-env';
+import { parse, literal, port, str, url } from 'clever-env';
 
 const env = parse({
   NODE_ENV: literal({
@@ -38,7 +38,7 @@ const env = parse({
 It defaults to using `process.env` as a base for parsing environment variables, but it can be overridden like this:
 
 ```ts
-import { parse, literal } from 'ts-env';
+import { parse, literal } from 'clever-env';
 
 const env = parse(
   {
@@ -107,7 +107,7 @@ import {
   createValidator,
   VariableOptions,
   InvalidVariableError
-} from 'ts-env';
+} from 'clever-env';
 
 interface LengthValidatorOptions extends VariableOptions<string> {
   length?: number;
@@ -133,4 +133,4 @@ const env = parse({
 });
 ```
 
-[ts-env]: https://npmjs.com/ts-env
+[clever-env]: https://npmjs.com/clever-env

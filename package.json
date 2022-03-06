@@ -1,11 +1,11 @@
 {
-  "name": "ts-env",
-  "description": "Strongly typed environment variables with validation.",
+  "name": "clever-env",
+  "description": "Strongly typed environment variables with validation and sanitization.",
   "license": "MIT",
   "version": "0.0.0",
-  "homepage": "https://github.com/screfy/ts-env#readme",
+  "homepage": "https://github.com/screfy/clever-env#readme",
   "author": "screfy <me@screfy.com> (https://screfy.com)",
-  "repository": "github:screfy/ts-env",
+  "repository": "github:screfy/clever-env",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -19,7 +19,7 @@
     "prepublishOnly": "pnpm build"
   },
   "bugs": {
-    "url": "https://github.com/screfy/ts-env/issues"
+    "url": "https://github.com/screfy/clever-env/issues"
   },
   "files": [
     "dist"

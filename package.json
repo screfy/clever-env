@@ -6,11 +6,11 @@
   "homepage": "https://github.com/screfy/ts-env#readme",
   "author": "screfy <me@screfy.com> (https://screfy.com)",
   "repository": "github:screfy/ts-env",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "rimraf dist && tsup src --format cjs,esm --dts",
+    "build": "rimraf dist && tsup src/index.ts --format cjs,esm --dts",
     "test": "jest",
     "prepare": "husky install",
     "lint": "eslint .",
@@ -36,8 +36,8 @@
     "node": ">=12"
   },
   "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.js"
+    "require": "./dist/index.js",
+    "import": "./dist/index.mjs"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.1",

@@ -15,7 +15,8 @@
     "prepare": "husky install",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm build"
   },
   "bugs": {
     "url": "https://github.com/screfy/ts-env/issues"

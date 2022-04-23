@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ['12', '14', '16']
+        node: ['14', '16']
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -48,5 +48,5 @@ jobs:
       - name: Run tests
         run: pnpm test
 
-      - name: Build application
+      - name: Build library
         run: pnpm build

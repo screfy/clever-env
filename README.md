@@ -23,15 +23,15 @@ pnpm add clever-env
 import { parse, literal, port, str, url } from 'clever-env';
 
 const env = parse({
-  NODE_ENV: literal({
-    values: ['production', 'development', 'test'],
-    default: 'development'
-  }),
-  PORT: port(),
-  URL: url(),
-  GITHUB_USERNAME: str({
-    default: 'screfy'
-  })
+	NODE_ENV: literal({
+		values: ['production', 'development', 'test'],
+		default: 'development'
+	}),
+	PORT: port(),
+	URL: url(),
+	GITHUB_USERNAME: str({
+		default: 'screfy'
+	})
 });
 ```
 
@@ -41,15 +41,15 @@ It defaults to using `process.env` as a base for parsing environment variables, 
 import { parse, literal } from 'clever-env';
 
 const env = parse(
-  {
-    NODE_ENV: literal({
-      values: ['production', 'development', 'test'],
-      default: 'development'
-    })
-  },
-  {
-    env: { NODE_ENV: 'test' }
-  }
+	{
+		NODE_ENV: literal({
+			values: ['production', 'development', 'test'],
+			default: 'development'
+		})
+	},
+	{
+		env: { NODE_ENV: 'test' }
+	}
 );
 ```
 
@@ -103,33 +103,33 @@ You can create a custom validator and use it like others, e.g.:
 
 ```ts
 import {
-  parse,
-  createValidator,
-  VariableOptions,
-  InvalidVariableError
+	parse,
+	createValidator,
+	VariableOptions,
+	InvalidVariableError
 } from 'clever-env';
 
 interface LengthValidatorOptions extends VariableOptions<string> {
-  length?: number;
+	length?: number;
 }
 
 const lengthValidator = createValidator<string, LengthValidatorOptions>(
-  (name, input, options) => {
-    if (options.length && input.length !== options.length) {
-      throw new InvalidVariableError(
-        name,
-        `must be ${options.length} characters long`
-      );
-    }
+	(name, input, options) => {
+		if (options.length && input.length !== options.length) {
+			throw new InvalidVariableError(
+				name,
+				`must be ${options.length} characters long`
+			);
+		}
 
-    return input;
-  }
+		return input;
+	}
 );
 
 const env = parse({
-  USERNAME: lengthValidator({
-    length: 12
-  })
+	USERNAME: lengthValidator({
+		length: 12
+	})
 });
 ```
 

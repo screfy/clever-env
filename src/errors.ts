@@ -1,15 +1,15 @@
 export class MissingVariableError extends Error {
-  public name: string;
+	public name: string;
 
-  constructor(name: string) {
-    super(`${name}: missing value`);
+	constructor(name: string) {
+		super(`${name}: missing value`);
 
-    this.name = name;
-  }
+		this.name = name;
+	}
 }
 
 export class InvalidVariableError extends Error {
-  constructor(name: string, reason: string) {
-    super(`${name}: ${reason}`);
-  }
+	constructor(name: string, reason: string) {
+		super(`${name}: ${reason}`);
+	}
 }

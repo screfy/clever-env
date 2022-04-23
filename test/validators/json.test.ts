@@ -1,4 +1,4 @@
-import { json, parse } from '../../src';
+import { json, cleverEnv } from '../../src';
 import {
 	expectToStrictEqual,
 	expectToThrowErrorAndCallConsole
@@ -6,7 +6,7 @@ import {
 
 describe('JSON validator', () => {
 	test('validate provided value', () => {
-		const env = parse(
+		const env = cleverEnv(
 			{
 				FOO: json<{ bar: string }>()
 			},
@@ -20,7 +20,7 @@ describe('JSON validator', () => {
 
 	test('fail with invalid value', () => {
 		expectToThrowErrorAndCallConsole(() =>
-			parse(
+			cleverEnv(
 				{
 					FOO: json<{ bar: string }>()
 				},
@@ -32,7 +32,7 @@ describe('JSON validator', () => {
 	});
 
 	test('validate default value', () => {
-		const env = parse({
+		const env = cleverEnv({
 			FOO: json<{ bar: string }>({ default: { bar: 'baz' } })
 		});
 
@@ -41,7 +41,7 @@ describe('JSON validator', () => {
 
 	test('fail with invalid default value', () => {
 		expectToThrowErrorAndCallConsole(() =>
-			parse({
+			cleverEnv({
 				// @ts-ignore: This is ok:
 				FOO: json<{ bar: string }>({ default: 'baz' })
 			})

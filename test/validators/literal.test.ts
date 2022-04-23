@@ -1,4 +1,4 @@
-import { literal, parse } from '../../src';
+import { literal, cleverEnv } from '../../src';
 import {
 	expectToStrictEqual,
 	expectToThrowErrorAndCallConsole
@@ -6,7 +6,7 @@ import {
 
 describe('Literal validator', () => {
 	test('validate provided value', () => {
-		const env = parse(
+		const env = cleverEnv(
 			{
 				FOO: literal({
 					values: ['foo', 'bar']
@@ -22,7 +22,7 @@ describe('Literal validator', () => {
 
 	test('fail with invalid value', () => {
 		expectToThrowErrorAndCallConsole(() =>
-			parse(
+			cleverEnv(
 				{
 					FOO: literal({
 						values: ['foo', 'bar']
@@ -36,7 +36,7 @@ describe('Literal validator', () => {
 	});
 
 	test('validate default value', () => {
-		const env = parse({
+		const env = cleverEnv({
 			FOO: literal({
 				values: ['foo', 'bar'],
 				default: 'bar'
@@ -48,7 +48,7 @@ describe('Literal validator', () => {
 
 	test('fail with invalid value', () => {
 		expectToThrowErrorAndCallConsole(() =>
-			parse({
+			cleverEnv({
 				FOO: literal({
 					values: ['foo', 'bar'],
 					// @ts-ignore: This is ok:

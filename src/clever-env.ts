@@ -3,7 +3,7 @@ import { ErrorList, Schema, Options } from './types';
 import { displayErrors } from './utils/display-errors';
 import { validateVariable } from './utils/validate-variable';
 
-export function parse<Variables>(
+export function cleverEnv<Variables>(
 	schema: Schema<Variables>,
 	{ env = process.env }: Options = {}
 ): Readonly<Variables> {

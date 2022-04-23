@@ -1,4 +1,4 @@
-import { boolean, parse } from '../../src';
+import { boolean, cleverEnv } from '../../src';
 import {
 	expectToStrictEqual,
 	expectToThrowErrorAndCallConsole
@@ -6,7 +6,7 @@ import {
 
 describe('Boolean validator', () => {
 	test('validate provided values', () => {
-		const env = parse(
+		const env = cleverEnv(
 			{
 				TRUE_1: boolean(),
 				TRUE_2: boolean(),
@@ -33,7 +33,7 @@ describe('Boolean validator', () => {
 
 	test('fail with invalid value', () => {
 		expectToThrowErrorAndCallConsole(() =>
-			parse(
+			cleverEnv(
 				{
 					FOO: boolean()
 				},
@@ -45,7 +45,7 @@ describe('Boolean validator', () => {
 	});
 
 	test('validate default value', () => {
-		const env = parse({
+		const env = cleverEnv({
 			FOO: boolean({ default: false })
 		});
 
@@ -56,7 +56,7 @@ describe('Boolean validator', () => {
 
 	test('fail with invalid default value', () => {
 		expectToThrowErrorAndCallConsole(() =>
-			parse({
+			cleverEnv({
 				// @ts-ignore: This is ok:
 				FOO: boolean({ default: 'foo' })
 			})

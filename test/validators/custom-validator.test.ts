@@ -1,7 +1,7 @@
 import {
 	createValidator,
 	InvalidVariableError,
-	parse,
+	cleverEnv,
 	VariableOptions
 } from '../../src';
 import {
@@ -25,7 +25,7 @@ const lengthValidator = createValidator<string, LengthValidatorOptions>(
 
 describe('Custom validator', () => {
 	test('validate provided value', () => {
-		const env = parse(
+		const env = cleverEnv(
 			{
 				FOO: lengthValidator({ length: 6 })
 			},
@@ -39,7 +39,7 @@ describe('Custom validator', () => {
 
 	test('fail with invalid value', () => {
 		expectToThrowErrorAndCallConsole(() => {
-			parse(
+			cleverEnv(
 				{
 					FOO: lengthValidator({ length: 6 })
 				},
@@ -51,7 +51,7 @@ describe('Custom validator', () => {
 	});
 
 	test('validate default value', () => {
-		const env = parse({
+		const env = cleverEnv({
 			FOO: lengthValidator({ length: 6, default: 'foobar' })
 		});
 
@@ -60,7 +60,7 @@ describe('Custom validator', () => {
 
 	test('fail with invalid default value', () => {
 		expectToThrowErrorAndCallConsole(() => {
-			parse({
+			cleverEnv({
 				FOO: lengthValidator({ length: 6, default: 'bar' })
 			});
 		});

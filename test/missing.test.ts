@@ -1,9 +1,8 @@
 import { cleverEnv, string } from '../src';
-import { expectToThrowErrorAndCallConsole } from './__helpers__';
 
 describe('Missing variable', () => {
 	test('missing variable', () => {
-		expectToThrowErrorAndCallConsole(() =>
+		expect(() =>
 			cleverEnv(
 				{
 					FOO: string()
@@ -12,6 +11,6 @@ describe('Missing variable', () => {
 					env: {}
 				}
 			)
-		);
+		).toThrowError();
 	});
 });

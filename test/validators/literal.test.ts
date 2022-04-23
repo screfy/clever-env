@@ -1,8 +1,5 @@
 import { literal, cleverEnv } from '../../src';
-import {
-	expectToStrictEqual,
-	expectToThrowErrorAndCallConsole
-} from '../__helpers__';
+import { expectToStrictEqual } from '../__helpers__';
 
 describe('Literal validator', () => {
 	test('validate provided value', () => {
@@ -21,7 +18,7 @@ describe('Literal validator', () => {
 	});
 
 	test('fail with invalid value', () => {
-		expectToThrowErrorAndCallConsole(() =>
+		expect(() =>
 			cleverEnv(
 				{
 					FOO: literal({
@@ -32,7 +29,7 @@ describe('Literal validator', () => {
 					env: { FOO: 'baz' }
 				}
 			)
-		);
+		).toThrowError();
 	});
 
 	test('validate default value', () => {
@@ -47,7 +44,7 @@ describe('Literal validator', () => {
 	});
 
 	test('fail with invalid value', () => {
-		expectToThrowErrorAndCallConsole(() =>
+		expect(() =>
 			cleverEnv({
 				FOO: literal({
 					values: ['foo', 'bar'],
@@ -55,6 +52,6 @@ describe('Literal validator', () => {
 					default: 'baz'
 				})
 			})
-		);
+		).toThrowError();
 	});
 });

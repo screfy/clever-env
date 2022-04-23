@@ -1,8 +1,5 @@
 import { json, cleverEnv } from '../../src';
-import {
-	expectToStrictEqual,
-	expectToThrowErrorAndCallConsole
-} from '../__helpers__';
+import { expectToStrictEqual } from '../__helpers__';
 
 describe('JSON validator', () => {
 	test('validate provided value', () => {
@@ -19,7 +16,7 @@ describe('JSON validator', () => {
 	});
 
 	test('fail with invalid value', () => {
-		expectToThrowErrorAndCallConsole(() =>
+		expect(() =>
 			cleverEnv(
 				{
 					FOO: json<{ bar: string }>()
@@ -28,7 +25,7 @@ describe('JSON validator', () => {
 					env: { FOO: 'bar' }
 				}
 			)
-		);
+		).toThrowError();
 	});
 
 	test('validate default value', () => {
@@ -40,11 +37,11 @@ describe('JSON validator', () => {
 	});
 
 	test('fail with invalid default value', () => {
-		expectToThrowErrorAndCallConsole(() =>
+		expect(() =>
 			cleverEnv({
 				// @ts-ignore: This is ok:
 				FOO: json<{ bar: string }>({ default: 'baz' })
 			})
-		);
+		).toThrowError();
 	});
 });

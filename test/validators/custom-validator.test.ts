@@ -4,10 +4,7 @@ import {
 	cleverEnv,
 	VariableOptions
 } from '../../src';
-import {
-	expectToStrictEqual,
-	expectToThrowErrorAndCallConsole
-} from '../__helpers__';
+import { expectToStrictEqual } from '../__helpers__';
 
 interface LengthValidatorOptions extends VariableOptions<string> {
 	length?: number;
@@ -42,7 +39,7 @@ describe('Custom validator', () => {
 	});
 
 	test('fail with invalid value', () => {
-		expectToThrowErrorAndCallConsole(() => {
+		expect(() => {
 			cleverEnv(
 				{
 					FOO: lengthValidator({ length: 6 })
@@ -51,7 +48,7 @@ describe('Custom validator', () => {
 					env: { FOO: 'bar' }
 				}
 			);
-		});
+		}).toThrowError();
 	});
 
 	test('validate default value', () => {
@@ -63,10 +60,10 @@ describe('Custom validator', () => {
 	});
 
 	test('fail with invalid default value', () => {
-		expectToThrowErrorAndCallConsole(() => {
+		expect(() => {
 			cleverEnv({
 				FOO: lengthValidator({ length: 6, default: 'bar' })
 			});
-		});
+		}).toThrowError();
 	});
 });

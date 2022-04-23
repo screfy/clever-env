@@ -1,4 +1,4 @@
-import { expectToStrictEqual, expectToThrowErrorAndCallConsole } from '.';
+import { expectToStrictEqual } from '.';
 import { StringOptions, string, cleverEnv } from '../../src';
 
 export function expectStringToBeValid(
@@ -24,7 +24,7 @@ export function expectStringToBeInvalid(
 	value: string,
 	options?: StringOptions
 ) {
-	expectToThrowErrorAndCallConsole(() =>
+	expect(() =>
 		cleverEnv(
 			{
 				FOO: string(options)
@@ -35,5 +35,5 @@ export function expectStringToBeInvalid(
 						env: { FOO: value }
 				  }
 		)
-	);
+	).toThrowError();
 }

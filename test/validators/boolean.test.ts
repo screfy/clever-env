@@ -1,8 +1,5 @@
 import { boolean, cleverEnv } from '../../src';
-import {
-	expectToStrictEqual,
-	expectToThrowErrorAndCallConsole
-} from '../__helpers__';
+import { expectToStrictEqual } from '../__helpers__';
 
 describe('Boolean validator', () => {
 	test('validate provided values', () => {
@@ -32,7 +29,7 @@ describe('Boolean validator', () => {
 	});
 
 	test('fail with invalid value', () => {
-		expectToThrowErrorAndCallConsole(() =>
+		expect(() =>
 			cleverEnv(
 				{
 					FOO: boolean()
@@ -41,7 +38,7 @@ describe('Boolean validator', () => {
 					env: { FOO: 'bar' }
 				}
 			)
-		);
+		).toThrowError();
 	});
 
 	test('validate default value', () => {
@@ -55,11 +52,11 @@ describe('Boolean validator', () => {
 	});
 
 	test('fail with invalid default value', () => {
-		expectToThrowErrorAndCallConsole(() =>
+		expect(() =>
 			cleverEnv({
 				// @ts-ignore: This is ok:
 				FOO: boolean({ default: 'foo' })
 			})
-		);
+		).toThrowError();
 	});
 });

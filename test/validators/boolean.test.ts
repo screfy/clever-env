@@ -1,4 +1,4 @@
-import { bool, parse } from '../../src';
+import { boolean, parse } from '../../src';
 import {
 	expectToStrictEqual,
 	expectToThrowErrorAndCallConsole
@@ -7,10 +7,10 @@ import {
 test('validate boolean', () => {
 	const env = parse(
 		{
-			TRUE_1: bool(),
-			TRUE_2: bool(),
-			FALSE_1: bool(),
-			FALSE_2: bool()
+			TRUE_1: boolean(),
+			TRUE_2: boolean(),
+			FALSE_1: boolean(),
+			FALSE_2: boolean()
 		},
 		{
 			env: {
@@ -34,7 +34,7 @@ test('fail with invalid value', () => {
 	expectToThrowErrorAndCallConsole(() =>
 		parse(
 			{
-				FOO: bool()
+				FOO: boolean()
 			},
 			{
 				env: { FOO: 'bar' }

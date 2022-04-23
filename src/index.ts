@@ -3,7 +3,7 @@ export * from './errors';
 export * from './types';
 export * from './validators/string';
 export * from './validators/num';
-export * from './validators/bool';
+export * from './validators/boolean';
 export * from './validators/port';
 export * from './validators/json';
 export * from './validators/literal';

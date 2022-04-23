@@ -1,5 +1,5 @@
 import { InvalidVariableError } from '../errors';
-import { createValidator } from '../clever-env';
+import { createValidator } from '../utils/create-validator';
 
 const BOOLEAN_POSITIVES = [true, 'true', 1, '1'];
 const BOOLEAN_NEGATIVES = [false, 'false', 0, '0'];

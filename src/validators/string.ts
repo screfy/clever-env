@@ -1,6 +1,6 @@
 import { InvalidVariableError } from '../errors';
-import { createValidator } from '../clever-env';
 import { VariableOptions } from '../types';
+import { createValidator } from '../utils/create-validator';
 
 export interface StringOptions extends VariableOptions<string> {
 	format?: 'email' | 'url' | 'uuid' | RegExp;

@@ -1,7 +1,7 @@
 import { InvalidVariableError } from '../errors';
-import { createValidator } from '../clever-env';
 import { VariableOptions } from '../types';
-import { parseNumber } from '../utils';
+import { parseNumber } from '../utils/parse-number';
+import { createValidator } from '../utils/create-validator';
 
 export interface NumberOptions extends VariableOptions<number> {
 	range?: 'tcp' | [number, number];

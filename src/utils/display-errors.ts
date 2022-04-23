@@ -1,18 +1,5 @@
-import { ErrorList } from '.';
-import { InvalidVariableError, MissingVariableError } from './errors';
-
-export function parseNumber(name: string, input: string): number {
-	const value = Number(input);
-
-	if (isNaN(value)) {
-		throw new InvalidVariableError(
-			name,
-			`value '${input}' is not valid number`
-		);
-	}
-
-	return value;
-}
+import { ErrorList } from '../types';
+import { InvalidVariableError, MissingVariableError } from '../errors';
 
 export function displayErrors(errors: ErrorList) {
 	const missing: string[] = [];

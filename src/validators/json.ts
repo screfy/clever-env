@@ -1,6 +1,6 @@
-import { createValidator } from '../clever-env';
 import { InvalidVariableError } from '../errors';
 import { VariableOptions } from '../types';
+import { createValidator } from '../utils/create-validator';
 
 export function json<T = { [key: string]: unknown }>(
 	options: VariableOptions<T> = {}

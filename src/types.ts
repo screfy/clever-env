@@ -16,7 +16,7 @@ export type ValidatorFn<T, O extends VariableOptions<T>> = (
 
 export interface Validator<T, O = VariableOptions<T>> {
 	options: O;
-	validate: ValidatorFn<T, O>;
+	validator: ValidatorFn<T, O>;
 }
 
 export type Schema<Variables> = {

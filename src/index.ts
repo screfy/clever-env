@@ -1,6 +1,7 @@
 export * from './clever-env';
 export * from './errors';
 export * from './types';
+export * from './utils/create-validator';
 export * from './validators/string';
 export * from './validators/number';
 export * from './validators/boolean';

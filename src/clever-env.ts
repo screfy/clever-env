@@ -1,18 +1,11 @@
 import { InvalidVariableError, MissingVariableError } from './errors';
-import {
-	ErrorList,
-	Schema,
-	Options,
-	VariableOptions,
-	ValidatorFn,
-	Validator
-} from './types';
-import { displayErrors } from './utils';
+import { ErrorList, Schema, Options, Validator } from './types';
+import { displayErrors } from './utils/display-errors';
 
 function validateVariable<T>(
 	key: string,
 	value: string | undefined,
-	{ options, validate }: Validator<T>
+	{ options, validator }: Validator<T>
 ): T {
 	if (options.default && !value) {
 		return options.default;
@@ -22,15 +15,9 @@ function validateVariable<T>(
 		throw new MissingVariableError(key);
 	}
 
-	const validatedValue = validate(key, value, options);
+	const validatedValue = validator(key, value, options);
 
 	return validatedValue;
-}
-
-export function createValidator<T, O = VariableOptions<T>>(
-	validate: ValidatorFn<T, O>
-): (options?: O) => Validator<T, O> {
-	return (options = {} as O) => ({ options, validate });
 }
 
 export function parse<Variables>(

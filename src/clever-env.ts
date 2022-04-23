@@ -10,21 +10,21 @@ import {
 import { displayErrors } from './utils';
 
 function validateVariable<T>(
-	name: string,
-	input: string | undefined,
+	key: string,
+	value: string | undefined,
 	{ options, validate }: Validator<T>
 ): T {
-	if (options.default && !input) {
+	if (options.default && !value) {
 		return options.default;
 	}
 
-	if (!input) {
-		throw new MissingVariableError(name);
+	if (!value) {
+		throw new MissingVariableError(key);
 	}
 
-	const value = validate(name, input, options);
+	const validatedValue = validate(key, value, options);
 
-	return value;
+	return validatedValue;
 }
 
 export function createValidator<T, O = VariableOptions<T>>(

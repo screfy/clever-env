@@ -1,17 +1,17 @@
-import { createValidator } from '../tsenv';
+import { createValidator } from '../clever-env';
 import { InvalidVariableError } from '../errors';
 import { VariableOptions } from '../types';
 
 export function json<T = { [key: string]: unknown }>(
 	options: VariableOptions<T> = {}
 ) {
-	return createValidator<T>((name, input) => {
+	return createValidator<T>((key, value) => {
 		try {
-			const value = JSON.parse(input);
+			const parsedValue = JSON.parse(value);
 
-			return value as T;
+			return parsedValue as T;
 		} catch {
-			throw new InvalidVariableError(name, `value is not valid JSON`);
+			throw new InvalidVariableError(key, `value is not valid JSON`);
 		}
 	})(options);
 }

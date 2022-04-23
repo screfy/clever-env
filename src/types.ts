@@ -9,8 +9,8 @@ export interface VariableOptions<T> {
 }
 
 export type ValidatorFn<T, O extends VariableOptions<T>> = (
-	name: string,
-	input: string,
+	key: string,
+	value: string,
 	options: O
 ) => T;
 

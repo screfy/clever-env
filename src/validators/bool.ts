@@ -1,5 +1,5 @@
 import { InvalidVariableError } from '../errors';
-import { createValidator } from '../tsenv';
+import { createValidator } from '../clever-env';
 
 export const bool = createValidator<boolean>((name, input) => {
 	switch (input) {

@@ -1,5 +1,5 @@
 import { InvalidVariableError } from '../errors';
-import { createValidator } from '../tsenv';
+import { createValidator } from '../clever-env';
 import { VariableOptions } from '../types';
 import { parseNumber } from '../utils';
 

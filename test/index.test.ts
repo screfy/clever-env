@@ -1,27 +1,14 @@
-import { num, parse, str } from '../src';
+import { num, parse, string } from '../src';
 import {
 	expectToStrictEqual,
 	expectToThrowErrorAndCallConsole
 } from './helpers';
 
-test('custom environment', () => {
-	const env = parse(
-		{
-			FOO: str()
-		},
-		{
-			env: { FOO: 'bar' }
-		}
-	);
-
-	expectToStrictEqual<typeof env>(env, { FOO: 'bar' });
-});
-
 test('missing variable', () => {
 	expectToThrowErrorAndCallConsole(() =>
 		parse(
 			{
-				FOO: str()
+				FOO: string()
 			},
 			{
 				env: {}
@@ -32,7 +19,7 @@ test('missing variable', () => {
 
 test('default values', () => {
 	const env = parse({
-		FOO: str({ default: 'bar' }),
+		FOO: string({ default: 'bar' }),
 		BAR: num({ default: 1 })
 	});
 

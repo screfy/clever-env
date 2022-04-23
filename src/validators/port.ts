@@ -1,5 +1,5 @@
 import { InvalidVariableError } from '../errors';
-import { createValidator } from '../tsenv';
+import { createValidator } from '../clever-env';
 import { parseNumber } from '../utils';
 
 export const port = createValidator<number>((name, input) => {

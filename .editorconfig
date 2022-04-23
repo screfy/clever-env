@@ -1,4 +1,4 @@
-# https://editorconfig.org/
+# https://editorconfig.org
 
 root = true
 
@@ -10,5 +10,5 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.md]
+[*.{md,yml,yaml}]
 indent_style = space

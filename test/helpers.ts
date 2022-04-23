@@ -1,4 +1,4 @@
-import { parse, string, StringOptions } from '../src';
+import { number, NumberOptions, parse, string, StringOptions } from '../src';
 
 function mockConsole() {
 	const consoleMock = jest
@@ -45,6 +45,39 @@ export function expectStringToBeInvalid(
 		parse(
 			{
 				FOO: string({ format })
+			},
+			{
+				env: { FOO: value }
+			}
+		)
+	);
+}
+
+export function expectNumberToBeValid(
+	value: string,
+	expectedValue: number,
+	range?: NumberOptions['range']
+) {
+	const env = parse(
+		{
+			FOO: number({ range })
+		},
+		{
+			env: { FOO: value }
+		}
+	);
+
+	expectToStrictEqual<typeof env>(env, { FOO: expectedValue });
+}
+
+export function expectNumberToBeInvalid(
+	value: string,
+	range?: NumberOptions['range']
+) {
+	expectToThrowErrorAndCallConsole(() =>
+		parse(
+			{
+				FOO: number({ range })
 			},
 			{
 				env: { FOO: value }

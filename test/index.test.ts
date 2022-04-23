@@ -1,4 +1,4 @@
-import { num, parse, string } from '../src';
+import { number, parse, string } from '../src';
 import {
 	expectToStrictEqual,
 	expectToThrowErrorAndCallConsole
@@ -20,7 +20,7 @@ test('missing variable', () => {
 test('default values', () => {
 	const env = parse({
 		FOO: string({ default: 'bar' }),
-		BAR: num({ default: 1 })
+		BAR: number({ default: 1 })
 	});
 
 	expectToStrictEqual<typeof env>(env, {

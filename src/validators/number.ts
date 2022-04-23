@@ -4,14 +4,21 @@ import { VariableOptions } from '../types';
 import { parseNumber } from '../utils';
 
 export interface NumberOptions extends VariableOptions<number> {
-	range?: [number, number];
+	range?: 'tcp' | [number, number];
 }
 
-export const num = createValidator<number, NumberOptions>(
+export const number = createValidator<number, NumberOptions>(
 	(name, input, { range }) => {
 		const value = parseNumber(name, input);
 
-		if (range) {
+		if (range && range == 'tcp') {
+			if (value % 1 !== 0 || value < 1 || value > 65535) {
+				throw new InvalidVariableError(
+					name,
+					`value '${input}' is out of TCP range (1-65535)`
+				);
+			}
+		} else if (range) {
 			const [min, max] = range;
 
 			if (value < min || value > max) {

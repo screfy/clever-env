@@ -3,32 +3,37 @@ import { StringOptions, string, parse } from '../../src';
 
 export function expectStringToBeValid(
 	value: string,
-	format?: StringOptions['format']
+	expectedValue: string,
+	options?: StringOptions
 ) {
 	const env = parse(
 		{
-			FOO: string({ format })
+			FOO: string(options)
 		},
-		{
-			env: { FOO: value }
-		}
+		options?.default
+			? undefined
+			: {
+					env: { FOO: value }
+			  }
 	);
 
-	expectToStrictEqual<typeof env>(env, { FOO: value });
+	expectToStrictEqual<typeof env>(env, { FOO: expectedValue });
 }
 
 export function expectStringToBeInvalid(
 	value: string,
-	format?: StringOptions['format']
+	options?: StringOptions
 ) {
 	expectToThrowErrorAndCallConsole(() =>
 		parse(
 			{
-				FOO: string({ format })
+				FOO: string(options)
 			},
-			{
-				env: { FOO: value }
-			}
+			options?.default
+				? undefined
+				: {
+						env: { FOO: value }
+				  }
 		)
 	);
 }

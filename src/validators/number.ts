@@ -8,27 +8,27 @@ export interface NumberOptions extends VariableOptions<number> {
 }
 
 export const number = createValidator<number, NumberOptions>(
-	(name, input, { range }) => {
-		const value = parseNumber(name, input);
+	(key, value, { range }) => {
+		const parsedNumber = parseNumber(key, value);
 
 		if (range && range == 'tcp') {
-			if (value % 1 !== 0 || value < 1 || value > 65535) {
+			if (parsedNumber % 1 !== 0 || parsedNumber < 1 || parsedNumber > 65535) {
 				throw new InvalidVariableError(
-					name,
-					`value '${input}' is out of TCP range (1-65535)`
+					key,
+					`value '${value}' is out of TCP range (1-65535)`
 				);
 			}
 		} else if (range) {
 			const [min, max] = range;
 
-			if (value < min || value > max) {
+			if (parsedNumber < min || parsedNumber > max) {
 				throw new InvalidVariableError(
-					name,
-					`value '${input}' is out of range (${min}-${max})`
+					key,
+					`value '${value}' is out of range (${min}-${max})`
 				);
 			}
 		}
 
-		return value;
+		return parsedNumber;
 	}
 );

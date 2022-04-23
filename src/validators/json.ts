@@ -7,9 +7,11 @@ export function json<T = { [key: string]: unknown }>(
 ) {
 	return createValidator<T>((key, value) => {
 		try {
-			const parsedValue = JSON.parse(value);
+			if (typeof value !== 'string') {
+				return value;
+			}
 
-			return parsedValue as T;
+			return JSON.parse(value);
 		} catch {
 			throw new InvalidVariableError(key, `value is not valid JSON`);
 		}

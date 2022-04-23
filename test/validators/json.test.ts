@@ -30,4 +30,21 @@ describe('JSON validator', () => {
 			)
 		);
 	});
+
+	test('validate default value', () => {
+		const env = parse({
+			FOO: json<{ bar: string }>({ default: { bar: 'baz' } })
+		});
+
+		expectToStrictEqual<typeof env>(env, { FOO: { bar: 'baz' } });
+	});
+
+	test('fail with invalid default value', () => {
+		expectToThrowErrorAndCallConsole(() =>
+			parse({
+				// @ts-ignore: This is ok:
+				FOO: json<{ bar: string }>({ default: 'baz' })
+			})
+		);
+	});
 });

@@ -43,4 +43,23 @@ describe('Boolean validator', () => {
 			)
 		);
 	});
+
+	test('validate default value', () => {
+		const env = parse({
+			FOO: boolean({ default: false })
+		});
+
+		expectToStrictEqual<typeof env>(env, {
+			FOO: false
+		});
+	});
+
+	test('fail with invalid default value', () => {
+		expectToThrowErrorAndCallConsole(() =>
+			parse({
+				// @ts-ignore: This is ok:
+				FOO: boolean({ default: 'foo' })
+			})
+		);
+	});
 });

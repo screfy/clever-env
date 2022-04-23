@@ -1,24 +1,7 @@
 import { InvalidVariableError, MissingVariableError } from './errors';
-import { ErrorList, Schema, Options, Validator } from './types';
+import { ErrorList, Schema, Options } from './types';
 import { displayErrors } from './utils/display-errors';
-
-function validateVariable<T>(
-	key: string,
-	value: string | undefined,
-	{ options, validator }: Validator<T>
-): T {
-	if (options.default && !value) {
-		return options.default;
-	}
-
-	if (!value) {
-		throw new MissingVariableError(key);
-	}
-
-	const validatedValue = validator(key, value, options);
-
-	return validatedValue;
-}
+import { validateVariable } from './utils/validate-variable';
 
 export function parse<Variables>(
 	schema: Schema<Variables>,
@@ -27,14 +10,12 @@ export function parse<Variables>(
 	const result = {} as Variables;
 	const errors: ErrorList = [];
 
-	for (const name in schema) {
-		const input = env[name];
-		const validator = schema[name];
+	for (const key in schema) {
+		const value = env[key];
+		const validator = schema[key];
 
 		try {
-			const value = validateVariable(name, input, validator);
-
-			result[name] = value;
+			result[key] = validateVariable(key, value, validator);
 		} catch (e) {
 			if (
 				e instanceof MissingVariableError ||

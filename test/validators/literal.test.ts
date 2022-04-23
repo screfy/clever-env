@@ -2,34 +2,36 @@ import { literal, parse } from '../../src';
 import {
 	expectToStrictEqual,
 	expectToThrowErrorAndCallConsole
-} from '../helpers';
+} from '../__helpers__';
 
-test('validate literal', () => {
-	const env = parse(
-		{
-			FOO: literal({
-				values: ['foo', 'bar']
-			})
-		},
-		{
-			env: { FOO: 'bar' }
-		}
-	);
-
-	expectToStrictEqual<typeof env>(env, { FOO: 'bar' });
-});
-
-test('fail with invalid value', () => {
-	expectToThrowErrorAndCallConsole(() =>
-		parse(
+describe('Literal validator', () => {
+	test('validate provided value', () => {
+		const env = parse(
 			{
 				FOO: literal({
 					values: ['foo', 'bar']
 				})
 			},
 			{
-				env: { FOO: 'baz' }
+				env: { FOO: 'bar' }
 			}
-		)
-	);
+		);
+
+		expectToStrictEqual<typeof env>(env, { FOO: 'bar' });
+	});
+
+	test('fail with invalid value', () => {
+		expectToThrowErrorAndCallConsole(() =>
+			parse(
+				{
+					FOO: literal({
+						values: ['foo', 'bar']
+					})
+				},
+				{
+					env: { FOO: 'baz' }
+				}
+			)
+		);
+	});
 });

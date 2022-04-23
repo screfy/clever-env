@@ -2,7 +2,7 @@ import { number, parse, string } from '../src';
 import {
 	expectToStrictEqual,
 	expectToThrowErrorAndCallConsole
-} from './helpers';
+} from './__helpers__';
 
 test('missing variable', () => {
 	expectToThrowErrorAndCallConsole(() =>

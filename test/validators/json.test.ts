@@ -2,30 +2,32 @@ import { json, parse } from '../../src';
 import {
 	expectToStrictEqual,
 	expectToThrowErrorAndCallConsole
-} from '../helpers';
+} from '../__helpers__';
 
-test('validate json', () => {
-	const env = parse(
-		{
-			FOO: json<{ bar: string }>()
-		},
-		{
-			env: { FOO: JSON.stringify({ bar: 'baz' }) }
-		}
-	);
-
-	expectToStrictEqual<typeof env>(env, { FOO: { bar: 'baz' } });
-});
-
-test('fail with invalid json', () => {
-	expectToThrowErrorAndCallConsole(() =>
-		parse(
+describe('JSON validator', () => {
+	test('validate provided value', () => {
+		const env = parse(
 			{
 				FOO: json<{ bar: string }>()
 			},
 			{
-				env: { FOO: 'bar' }
+				env: { FOO: JSON.stringify({ bar: 'baz' }) }
 			}
-		)
-	);
+		);
+
+		expectToStrictEqual<typeof env>(env, { FOO: { bar: 'baz' } });
+	});
+
+	test('fail with invalid value', () => {
+		expectToThrowErrorAndCallConsole(() =>
+			parse(
+				{
+					FOO: json<{ bar: string }>()
+				},
+				{
+					env: { FOO: 'bar' }
+				}
+			)
+		);
+	});
 });

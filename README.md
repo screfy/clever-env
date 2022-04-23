@@ -1,136 +1,132 @@
 # clever-env
 
-[`clever-env`][clever-env] validates, sanitizes environment variables and parses them to the right type.
+[`clever-env`][clever-env] validates and sanitizes environment variables and
+parses them to the right type.
 
-With this library, you can make sure you don't accidentally deploy your application with missing or invalid environment variables.
+## Why validate environment variables?
+
+Environment variables are injected from outside into your application, and you
+have no control over them within your codebase.
+
+For example, a section of your code relies on the existence of the `PORT` variable.
+There is no guarantee that at the time of running your application, the `PORT`
+variable exists and has the correct value, so you must validate it.
 
 ## Installation
 
 ```bash
-# With NPM:
 npm install clever-env
-
-# With Yarn:
-yarn add clever-env
-
-# With pnpm:
-pnpm add clever-env
 ```
 
 ## Usage
 
 ```ts
-import { parse, literal, port, str, url } from 'clever-env';
+import { cleverEnv, literal, number, string } from 'clever-env';
 
-const env = parse({
-	NODE_ENV: literal({
-		values: ['production', 'development', 'test'],
-		default: 'development'
-	}),
-	PORT: port(),
-	URL: url(),
-	GITHUB_USERNAME: str({
-		default: 'screfy'
-	})
+const env = cleverEnv({
+  NODE_ENV: literal({
+    values: ['production', 'development', 'test'],
+    default: 'development'
+  }),
+  PORT: number({ range: 'tcp' }),
+  URL: string({ format: 'url' }),
+  GITHUB_USERNAME: string({
+    default: 'screfy'
+  })
 });
 ```
 
-It defaults to using `process.env` as a base for parsing environment variables, but it can be overridden like this:
+It defaults to using `process.env` as a base for parsing environment variables,
+but it can be overridden like this:
 
 ```ts
-import { parse, literal } from 'clever-env';
+import { cleverEnv } from 'clever-env';
 
-const env = parse(
-	{
-		NODE_ENV: literal({
-			values: ['production', 'development', 'test'],
-			default: 'development'
-		})
-	},
-	{
-		env: { NODE_ENV: 'test' }
-	}
+const env = cleverEnv(
+  {
+    ...
+  },
+  {
+    env: { PORT: 80 }
+  }
 );
 ```
 
 ## Validators
 
-The library comes with the following built-in validators:
+The library comes with the following built-in validators.
 
-| Validator                       | Return type                     | Description                                                                                        |
-| ------------------------------- | ------------------------------- | -------------------------------------------------------------------------------------------------- |
-| [`str()`](#str-validator)       | `string`                        | Ensures an environment variable is a string and is not undefined or empty.                         |
-| [`num()`](#num-validator)       | `number`                        | Parses an environment variable into a valid number.                                                |
-| `bool()`                        | `boolean`                       | Parses an environment variable (`'true'`, `'1'`, `'false'`, or `'f'`) into boolean.                |
-| `port()`                        | `number`                        | Parses an environment variable into a valid number and ensures that is in the TCP range (1-65535). |
-| `email()`                       | `string`                        | Ensures an environment variable is a valid email address.                                          |
-| `uuid()`                        | `string`                        | Ensures an environment variable is a valid UUID.                                                   |
-| `url()`                         | `string`                        | Ensures an environment variable is a valid URL address.                                            |
-| `json()`                        | `Record<string, unknown>` / `T` | Parses an environment variable into a JSON object.                                                 |
-| [`literal`](#literal-validator) | `string` / `T`                  | Ensures an environment variable is in a specified `values` list.                                   |
+### `string`
 
-## Validator options
+Ensures the value is a string and is not undefined or empty.
 
-Every validator has the following options:
+```ts
+{
+  // Must be a valid email:
+  EMAIL: string({ format: 'email' }),
+  // Must be a valid URL:
+  URL: string({ format: 'url' }),
+  // Must be a valid UUID v4:
+  UUID: string({ format: 'uuid' }),
+  // Must be in the provided format:
+  REGEX: string({ format: /[a-z]/ }),
+}
+```
 
-| Name      | Type | Description                                                                         |
-| --------- | ---- | ----------------------------------------------------------------------------------- |
-| `default` | `T`  | A fallback value, which will be used if the environment variable was not specified. |
+### `number`
 
-Some validators have their own options:
+Enforces the value to be a valid string representation of a number.
 
-#### `str()` validator
+```ts
+{
+  // Must be in the TCP range (1-65535):
+  TCP: number({ range: 'tcp' }),
+  // Must be in the range 1-100:
+  RANGE: number({ range: [1, 100] }),
+}
+```
 
-| Name    | Type     | Description                                                   |
-| ------- | -------- | ------------------------------------------------------------- |
-| `regex` | `RegExp` | Ensures an environment variable matches a regular expression. |
+### `boolean`
 
-#### `num()` validator
+Enforces the value to be a valid string representation of a boolean.
+The following values are considered as a valid booleans and will be parsed:
 
-| Name    | Type               | Description                                                 |
-| ------- | ------------------ | ----------------------------------------------------------- |
-| `regex` | `[number, number]` | Ensures an environment variable is in the range of numbers. |
+- `'true', '1'` are parsed to `true`
+- `'false', '0'` are parsed to `false`
 
-#### `literal()` validator
+```ts
+{
+  BOOL: boolean(),
+}
+```
 
-| Name     | Type       | Description                                               |
-| -------- | ---------- | --------------------------------------------------------- |
-| `values` | `string[]` | Ensures an environment variable is in the list of values. |
+### `literal`
+
+Forces the value to be one of the pre-defined values.
+
+```ts
+{
+  NODE_ENV: literal({
+    values: ['production', 'development', 'test'],
+    default: 'development'
+  }),
+}
+```
+
+### `json`
+
+Enforces the value to be a valid string representation of a valid JSON object.
+
+```ts
+{
+  JSON: json<{ foo: string }>(),
+}
+```
 
 ## Custom validators
 
-You can create a custom validator and use it like others, e.g.:
-
-```ts
-import {
-	parse,
-	createValidator,
-	VariableOptions,
-	InvalidVariableError
-} from 'clever-env';
-
-interface LengthValidatorOptions extends VariableOptions<string> {
-	length?: number;
-}
-
-const lengthValidator = createValidator<string, LengthValidatorOptions>(
-	(name, input, options) => {
-		if (options.length && input.length !== options.length) {
-			throw new InvalidVariableError(
-				name,
-				`must be ${options.length} characters long`
-			);
-		}
-
-		return input;
-	}
-);
-
-const env = parse({
-	USERNAME: lengthValidator({
-		length: 12
-	})
-});
-```
+For every other validation use case, you can create your custom validator.
+You can find an example [here][custom-validator].
 
 [clever-env]: https://npmjs.com/clever-env
+[custom-validator]: /test/validators/custom-validator.test.ts

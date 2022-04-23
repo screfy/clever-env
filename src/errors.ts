@@ -1,15 +1,19 @@
 export class MissingVariableError extends Error {
-	public name: string;
+	public readonly key: string;
 
-	constructor(name: string) {
-		super(`${name}: missing value`);
+	constructor(key: string) {
+		super(`${key}: missing value`);
 
-		this.name = name;
+		this.key = key;
 	}
 }
 
 export class InvalidVariableError extends Error {
-	constructor(name: string, reason: string) {
-		super(`${name}: ${reason}`);
+	constructor(key: string, value: unknown, type: string) {
+		super(
+			`${key}: must be ${type}, instead received '${
+				typeof value === 'object' ? JSON.stringify(value) : value
+			}'`
+		);
 	}
 }

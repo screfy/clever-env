@@ -8,7 +8,7 @@ export function displayErrors(errors: ErrorList) {
 
 	errors.forEach((e) => {
 		if (e instanceof MissingVariableError) {
-			missing.push(e.name);
+			missing.push(e.key);
 		}
 
 		if (e instanceof InvalidVariableError) {
@@ -26,11 +26,5 @@ export function displayErrors(errors: ErrorList) {
 		output.push(...invalid);
 	}
 
-	console.error(`${output.join('\n')}\n`);
-
-	throw new Error(
-		`Found ${errors.length} error${
-			errors.length > 1 ? 's' : ''
-		} in your environment schema.`
-	);
+	throw new Error(`${output.join('\n')}\n`);
 }

@@ -13,7 +13,7 @@ export function json<T = { [key: string]: unknown }>(
 
 			return JSON.parse(value);
 		} catch {
-			throw new InvalidVariableError(key, `value is not valid JSON`);
+			throw new InvalidVariableError(key, value, 'a JSON');
 		}
 	})(options);
 }

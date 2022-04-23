@@ -15,7 +15,8 @@ export const number = createValidator<number, NumberOptions>(
 			if (parsedNumber % 1 !== 0 || parsedNumber < 1 || parsedNumber > 65535) {
 				throw new InvalidVariableError(
 					key,
-					`value '${value}' is out of TCP range (1-65535)`
+					value,
+					`in the TCP range (1-65535)`
 				);
 			}
 		} else if (range) {
@@ -24,7 +25,8 @@ export const number = createValidator<number, NumberOptions>(
 			if (parsedNumber < min || parsedNumber > max) {
 				throw new InvalidVariableError(
 					key,
-					`value '${value}' is out of range (${min}-${max})`
+					value,
+					`in the range (${min}-${max})`
 				);
 			}
 		}

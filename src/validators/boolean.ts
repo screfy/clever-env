@@ -13,5 +13,5 @@ export const boolean = createValidator<boolean>((key, value) => {
 		return false;
 	}
 
-	throw new InvalidVariableError(key, `value '${value}' is not valid boolean`);
+	throw new InvalidVariableError(key, value, 'a boolean');
 });

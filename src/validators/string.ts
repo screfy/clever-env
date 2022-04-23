@@ -19,22 +19,19 @@ const FORMATS: {
 } = {
 	email: (key, value) => {
 		if (!EMAIL_EXPRESSION.test(value)) {
-			throw new InvalidVariableError(
-				key,
-				`value '${value}' is not valid email address`
-			);
+			throw new InvalidVariableError(key, value, 'a email');
 		}
 	},
 	url: (key, value) => {
 		try {
 			new URL(value);
 		} catch {
-			throw new InvalidVariableError(key, `value '${value}' is not valid URL`);
+			throw new InvalidVariableError(key, value, 'an URL');
 		}
 	},
 	uuid: (key, value) => {
 		if (!UUID_EXPRESSION.test(value)) {
-			throw new InvalidVariableError(key, `value '${value}' is not valid UUID`);
+			throw new InvalidVariableError(key, value, 'an UUID');
 		}
 	}
 };
@@ -45,7 +42,8 @@ export const string = createValidator<string, StringOptions>(
 			if (!format.test(value)) {
 				throw new InvalidVariableError(
 					key,
-					`value '${value}' does not match regex`
+					value,
+					`in the following format '${format.source}'`
 				);
 			}
 		} else if (format) {

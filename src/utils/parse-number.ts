@@ -8,7 +8,7 @@ export function parseNumber(key: string, value: string | number): number {
 	const num = Number(value);
 
 	if (isNaN(num)) {
-		throw new InvalidVariableError(key, `value '${value}' is not valid number`);
+		throw new InvalidVariableError(key, value, 'a number');
 	}
 
 	return num;

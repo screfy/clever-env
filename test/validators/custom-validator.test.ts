@@ -16,7 +16,11 @@ interface LengthValidatorOptions extends VariableOptions<string> {
 const lengthValidator = createValidator<string, LengthValidatorOptions>(
 	(key, value, { length }) => {
 		if (length && value.length !== length) {
-			throw new InvalidVariableError(key, `must be ${length} characters long`);
+			throw new InvalidVariableError(
+				key,
+				`${value.length} characters`,
+				`${length} characters long`
+			);
 		}
 
 		return value;

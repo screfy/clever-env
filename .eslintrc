@@ -17,6 +17,7 @@
 	"plugins": ["@typescript-eslint"],
 	"rules": {
 		"no-loss-of-precision": "error",
+		"@typescript-eslint/ban-ts-comment": "allow-with-description",
 		"@typescript-eslint/no-empty-function": "off"
 	}
 }

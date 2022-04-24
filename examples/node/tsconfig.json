@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"moduleResolution": "Node",
+		"target": "ES2020",
+		"module": "CommonJS",
+		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"alwaysStrict": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"esModuleInterop": true,
+		"incremental": true,
+		"allowJs": false
+	},
+	"include": ["src"],
+	"exclude": ["node_modules"]
+}

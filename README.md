@@ -21,19 +21,19 @@ npm install clever-env
 ## Usage
 
 ```ts
-import { cleverEnv, literal, number, string } from 'clever-env';
+import cleverEnv from 'clever-env';
 
-const env = cleverEnv({
-  NODE_ENV: literal({
-    values: ['production', 'development', 'test'],
+const env = cleverEnv((schema) => ({
+  NODE_ENV: schema.enum({
+    values: ['production', 'development', 'test'] as const,
     default: 'development'
   }),
-  PORT: number({ range: 'tcp' }),
-  URL: string({ format: 'url' }),
-  GITHUB_USERNAME: string({
+  PORT: schema.number({ range: 'tcp' }),
+  URL: schema.string({ format: 'url' }),
+  GITHUB_USERNAME: schema.string({
     default: 'screfy'
   })
-});
+}));
 ```
 
 It defaults to using `process.env` as a base for parsing environment variables,
@@ -42,10 +42,9 @@ but it can be overridden like this:
 ```ts
 import { cleverEnv } from 'clever-env';
 
-const env = cleverEnv(
-  {
+const env = cleverEnv((schema) => ({
     ...
-  },
+  }),
   {
     env: { PORT: 80 }
   }
@@ -56,37 +55,37 @@ const env = cleverEnv(
 
 The library comes with the following built-in validators.
 
-### `string`
+### `schema.string`
 
 Ensures the value is a string and is not undefined or empty.
 
 ```ts
 {
   // Must be a valid email:
-  EMAIL: string({ format: 'email' }),
+  EMAIL: schema.string({ format: 'email' }),
   // Must be a valid URL:
-  URL: string({ format: 'url' }),
+  URL: schema.string({ format: 'url' }),
   // Must be a valid UUID v4:
-  UUID: string({ format: 'uuid' }),
+  UUID: schema.string({ format: 'uuid' }),
   // Must be in the provided format:
-  REGEX: string({ format: /[a-z]/ }),
+  REGEX: schema.string({ format: /[a-z]/ }),
 }
 ```
 
-### `number`
+### `schema.number`
 
 Enforces the value to be a valid string representation of a number.
 
 ```ts
 {
   // Must be in the TCP range (1-65535):
-  TCP: number({ range: 'tcp' }),
+  TCP: schema.number({ range: 'tcp' }),
   // Must be in the range 1-100:
-  RANGE: number({ range: [1, 100] }),
+  RANGE: schema.number({ range: [1, 100] }),
 }
 ```
 
-### `boolean`
+### `schema.boolean`
 
 Enforces the value to be a valid string representation of a boolean.
 The following values are considered as a valid booleans and will be parsed:
@@ -96,37 +95,23 @@ The following values are considered as a valid booleans and will be parsed:
 
 ```ts
 {
-  BOOL: boolean(),
+  BOOL: schema.boolean(),
 }
 ```
 
-### `literal`
+### `schema.enum`
 
 Forces the value to be one of the pre-defined values.
 
 ```ts
 {
-  NODE_ENV: literal({
-    values: ['production', 'development', 'test'],
+  NODE_ENV: schema.enum({
+    values: ['production', 'development', 'test'] as const,
     default: 'development'
   }),
 }
 ```
 
-### `json`
-
-Enforces the value to be a valid string representation of a valid JSON object.
-
-```ts
-{
-  JSON: json<{ foo: string }>(),
-}
-```
-
-## Custom validators
-
-For every other validation use case, you can create your custom validator.
-You can find an example [here][custom-validator].
+**NOTE:** We use `as const` to allow TypeScript to properly type our enum values.
 
 [clever-env]: https://npmjs.com/clever-env
-[custom-validator]: /test/validators/custom-validator.test.ts

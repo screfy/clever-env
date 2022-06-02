@@ -1,9 +1,9 @@
-import { cleverEnv, literal, number } from 'clever-env';
+import cleverEnv from 'clever-env';
 
-export const env = cleverEnv({
-	NODE_ENV: literal({
-		values: ['production', 'development', 'test'],
+export const env = cleverEnv((schema) => ({
+	NODE_ENV: schema.enum({
+		values: ['production', 'development', 'test'] as const,
 		default: 'development'
 	}),
-	PORT: number({ range: 'tcp' })
-});
+	PORT: schema.number({ range: 'tcp' })
+}));

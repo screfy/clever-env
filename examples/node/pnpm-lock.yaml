@@ -1,4 +1,4 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 specifiers:
   '@types/node': ^17.0.25
@@ -7,11 +7,11 @@ specifiers:
   typescript: ^4.6.3
 
 dependencies:
-  clever-env: 2.0.0
+  clever-env: 3.0.0
 
 devDependencies:
   '@types/node': 17.0.25
-  ts-node: 10.7.0_de7c86b0cde507c63a0402da5b982bd3
+  ts-node: 10.7.0_3z6inmgn4ud4moqealnfxgbl2m
   typescript: 4.6.3
 
 packages:
@@ -63,8 +63,8 @@ packages:
     resolution: {integrity: sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ+71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==}
     dev: true
 
-  /clever-env/2.0.0:
-    resolution: {integrity: sha512-wyqNpFNwwPFsVRgJMWyWyKiK5vGGEdh7CmVCxgx8EBYsI5XTYdd5GxnLfSNnITEJedZYXOvlFi4eVM+0jEfxaA==}
+  /clever-env/3.0.0:
+    resolution: {integrity: sha512-1WrkEEVJd8QEFP0/SRMow0AxKp+cd0/VU0Ze1PO4AfA+VcHPniJvGyRULt/S/Ed8e3xyDBs50eU1zchiGG79oA==}
     engines: {node: '>=14'}
     dev: false
 
@@ -81,7 +81,7 @@ packages:
     resolution: {integrity: sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==}
     dev: true
 
-  /ts-node/10.7.0_de7c86b0cde507c63a0402da5b982bd3:
+  /ts-node/10.7.0_3z6inmgn4ud4moqealnfxgbl2m:
     resolution: {integrity: sha512-TbIGS4xgJoX2i3do417KSaep1uRAW/Lu+WAL2doDHC0D6ummjirVOXU5/7aiZotbQ5p1Zp9tP7U6cYhA0O7M8A==}
     hasBin: true
     peerDependencies:

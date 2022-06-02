@@ -1,4 +1,4 @@
-import { cleverEnv, literal, string } from 'clever-env';
+import cleverEnv from 'clever-env';
 import { clientEnv } from './client-env';
 
 if (typeof window !== 'undefined') {
@@ -9,10 +9,10 @@ if (typeof window !== 'undefined') {
 
 export const serverEnv = {
 	...clientEnv,
-	...cleverEnv({
-		NODE_ENV: literal({
+	...cleverEnv((schema) => ({
+		NODE_ENV: schema.enum({
 			values: ['production', 'development', 'test']
 		}),
-		SECRET: string()
-	})
+		SECRET: schema.string()
+	}))
 };

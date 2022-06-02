@@ -1,4 +1,4 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 specifiers:
   '@types/node': ^17.0.25
@@ -11,8 +11,8 @@ specifiers:
   typescript: ^4.6.3
 
 dependencies:
-  clever-env: 2.0.0
-  next: 12.1.5_react-dom@17.0.2+react@17.0.2
+  clever-env: 3.0.0
+  next: 12.1.5_sfoxds7t5ydpegc3knd667wn6m
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
 
@@ -166,8 +166,8 @@ packages:
     resolution: {integrity: sha512-kbaCEBRRVSoeNs74sCuq92MJyGrMtjWVfhltoHUCW4t4pXFvGjUBrfo47weBRViHkiV3eBYyIsfl956NtHGazw==}
     dev: false
 
-  /clever-env/2.0.0:
-    resolution: {integrity: sha512-wyqNpFNwwPFsVRgJMWyWyKiK5vGGEdh7CmVCxgx8EBYsI5XTYdd5GxnLfSNnITEJedZYXOvlFi4eVM+0jEfxaA==}
+  /clever-env/3.0.0:
+    resolution: {integrity: sha512-1WrkEEVJd8QEFP0/SRMow0AxKp+cd0/VU0Ze1PO4AfA+VcHPniJvGyRULt/S/Ed8e3xyDBs50eU1zchiGG79oA==}
     engines: {node: '>=14'}
     dev: false
 
@@ -192,7 +192,7 @@ packages:
     hasBin: true
     dev: false
 
-  /next/12.1.5_react-dom@17.0.2+react@17.0.2:
+  /next/12.1.5_sfoxds7t5ydpegc3knd667wn6m:
     resolution: {integrity: sha512-YGHDpyfgCfnT5GZObsKepmRnne7Kzp7nGrac07dikhutWQug7hHg85/+sPJ4ZW5Q2pDkb+n0FnmLkmd44htIJQ==}
     engines: {node: '>=12.22.0'}
     hasBin: true

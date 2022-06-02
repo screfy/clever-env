@@ -1,10 +1,10 @@
-import { cleverEnv, string } from 'clever-env';
+import cleverEnv from 'clever-env';
 
 export const clientEnv = cleverEnv(
-	{
-		NEXT_PUBLIC_AUTHOR: string(),
-		NEXT_PUBLIC_URL: string({ format: 'url' })
-	},
+	(schema) => ({
+		NEXT_PUBLIC_AUTHOR: schema.string(),
+		NEXT_PUBLIC_URL: schema.string({ format: 'url' })
+	}),
 	{
 		// Because of how Next.js deals with transpiling public environment
 		// variables, we have to put them in as a custom `env` object:

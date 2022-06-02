@@ -2,7 +2,7 @@
 	"name": "clever-env",
 	"description": "Strongly typed environment variables with validation and sanitization.",
 	"license": "MIT",
-	"version": "2.0.0",
+	"version": "3.0.0",
 	"homepage": "https://github.com/screfy/clever-env#readme",
 	"author": "screfy <me@screfy.com> (https://screfy.com)",
 	"repository": "github:screfy/clever-env",

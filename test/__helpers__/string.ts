@@ -1,15 +1,15 @@
 import { expectToStrictEqual } from '.';
-import { StringOptions, string, cleverEnv } from '../../src';
+import cleverEnv, { StringVariableOptions } from '../../src';
 
 export function expectStringToBeValid(
 	value: string,
 	expectedValue: string,
-	options?: StringOptions
+	options?: StringVariableOptions
 ) {
 	const env = cleverEnv(
-		{
-			FOO: string(options)
-		},
+		(schema) => ({
+			FOO: schema.string(options)
+		}),
 		options?.default
 			? undefined
 			: {
@@ -22,13 +22,13 @@ export function expectStringToBeValid(
 
 export function expectStringToBeInvalid(
 	value: string,
-	options?: StringOptions
+	options?: StringVariableOptions
 ) {
 	expect(() =>
 		cleverEnv(
-			{
-				FOO: string(options)
-			},
+			(schema) => ({
+				FOO: schema.string(options)
+			}),
 			options?.default
 				? undefined
 				: {

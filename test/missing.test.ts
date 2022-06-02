@@ -1,12 +1,12 @@
-import { cleverEnv, string } from '../src';
+import cleverEnv from '../src';
 
 describe('Missing variable', () => {
 	test('missing variable', () => {
 		expect(() =>
 			cleverEnv(
-				{
-					FOO: string()
-				},
+				(schema) => ({
+					FOO: schema.string()
+				}),
 				{
 					env: {}
 				}

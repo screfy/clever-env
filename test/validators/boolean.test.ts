@@ -1,15 +1,15 @@
-import { boolean, cleverEnv } from '../../src';
+import cleverEnv from '../../src';
 import { expectToStrictEqual } from '../__helpers__';
 
 describe('Boolean validator', () => {
 	test('validate provided values', () => {
 		const env = cleverEnv(
-			{
-				TRUE_1: boolean(),
-				TRUE_2: boolean(),
-				FALSE_1: boolean(),
-				FALSE_2: boolean()
-			},
+			(schema) => ({
+				TRUE_1: schema.boolean(),
+				TRUE_2: schema.boolean(),
+				FALSE_1: schema.boolean(),
+				FALSE_2: schema.boolean()
+			}),
 			{
 				env: {
 					TRUE_1: 'true',
@@ -31,9 +31,9 @@ describe('Boolean validator', () => {
 	test('fail with invalid value', () => {
 		expect(() =>
 			cleverEnv(
-				{
-					FOO: boolean()
-				},
+				(schema) => ({
+					FOO: schema.boolean()
+				}),
 				{
 					env: { FOO: 'bar' }
 				}
@@ -42,9 +42,9 @@ describe('Boolean validator', () => {
 	});
 
 	test('validate default value', () => {
-		const env = cleverEnv({
-			FOO: boolean({ default: false })
-		});
+		const env = cleverEnv((schema) => ({
+			FOO: schema.boolean({ default: false })
+		}));
 
 		expectToStrictEqual<typeof env>(env, {
 			FOO: false
@@ -53,10 +53,10 @@ describe('Boolean validator', () => {
 
 	test('fail with invalid default value', () => {
 		expect(() =>
-			cleverEnv({
+			cleverEnv((schema) => ({
 				// @ts-ignore: This is ok:
-				FOO: boolean({ default: 'foo' })
-			})
+				FOO: schema.boolean({ default: 'foo' })
+			}))
 		).toThrowError();
 	});
 });

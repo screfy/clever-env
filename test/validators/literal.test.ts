@@ -1,14 +1,14 @@
-import { literal, cleverEnv } from '../../src';
+import cleverEnv from '../../src';
 import { expectToStrictEqual } from '../__helpers__';
 
 describe('Literal validator', () => {
 	test('validate provided value', () => {
 		const env = cleverEnv(
-			{
-				FOO: literal({
-					values: ['foo', 'bar']
+			(schema) => ({
+				FOO: schema.enum({
+					values: ['foo', 'bar'] as const
 				})
-			},
+			}),
 			{
 				env: { FOO: 'bar' }
 			}
@@ -20,11 +20,11 @@ describe('Literal validator', () => {
 	test('fail with invalid value', () => {
 		expect(() =>
 			cleverEnv(
-				{
-					FOO: literal({
-						values: ['foo', 'bar']
+				(schema) => ({
+					FOO: schema.enum({
+						values: ['foo', 'bar'] as const
 					})
-				},
+				}),
 				{
 					env: { FOO: 'baz' }
 				}
@@ -33,25 +33,25 @@ describe('Literal validator', () => {
 	});
 
 	test('validate default value', () => {
-		const env = cleverEnv({
-			FOO: literal({
-				values: ['foo', 'bar'],
+		const env = cleverEnv((schema) => ({
+			FOO: schema.enum({
+				values: ['foo', 'bar'] as const,
 				default: 'bar'
 			})
-		});
+		}));
 
 		expectToStrictEqual<typeof env>(env, { FOO: 'bar' });
 	});
 
 	test('fail with invalid value', () => {
 		expect(() =>
-			cleverEnv({
-				FOO: literal({
-					values: ['foo', 'bar'],
+			cleverEnv((schema) => ({
+				FOO: schema.enum({
+					values: ['foo', 'bar'] as const,
 					// @ts-ignore: This is ok:
 					default: 'baz'
 				})
-			})
+			}))
 		).toThrowError();
 	});
 });

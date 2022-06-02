@@ -1,12 +1,11 @@
 import { MissingVariableError } from '../errors';
-import { Validator } from '../types';
 
-export function validateVariable<T>(
+export function ensureValue(
 	key: string,
 	value: string | undefined,
-	{ options, validator }: Validator<T>
-): T {
-	let valueForValidation: string | T | undefined;
+	options: { default: unknown }
+) {
+	let valueForValidation: unknown | undefined;
 
 	// Set a default value for a variable when is provided:
 	if (options.default !== undefined && value === undefined) {
@@ -19,8 +18,8 @@ export function validateVariable<T>(
 	}
 
 	if (valueForValidation === undefined) {
-		valueForValidation = value as string;
+		valueForValidation = value;
 	}
 
-	return validator(key, valueForValidation, options);
+	return valueForValidation as string;
 }
